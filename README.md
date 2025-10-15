@@ -15,21 +15,52 @@ Built for Microsoft SQL Server and tested in SSMS. The diagram is available as a
 - Separate scripts per task (insert/select/update), each with a built‑in “check” query
 - An ER diagram 
 
-## Why this design
+## Diagram
 
-- One order can contain many books:
-  - Implemented with the junction table `order_items(order_id, book_isbn, quantity)`
-  - Recommended unique index `UNIQUE(order_id, book_isbn)` avoids duplicate lines; increase `quantity` instead
-- Clear domain entities and relationships:
-  - customers 1—N orders
-  - orders 1—N order_items
-  - books 1—N order_items
-  - genres 1—N books
-  - admin stands alone
+![ER diagram](images/diagram.png)
+
+## Screenshots (tasks 1–11)
+
+> All images are stored in [images/](images/).
+
+- Task 1 — INSERT a book with optional fields  
+  ![Task 1 – Insert with optional fields](images/01_insert_book_with_optional.png)
+
+- Task 2 — INSERT a book without optional fields  
+  ![Task 2 – Insert without optional fields](images/02_insert_book_without_optional.png)
+
+- Task 3 — INSERT an order for a customer who buys a book (steps)  
+  ![Task 3.1 – Create order (step 1)](images/031_create_order_customer_buys_book.png)  
+  ![Task 3.2 – Create order (step 2)](images/032_create_order_customer_buys_book.png)  
+  ![Task 3.3 – Create order (step 3)](images/033_create_order_customer_buys_book.png)
+
+- Task 4 — SELECT all genres  
+  ![Task 4 – Select all genres](images/04_select_all_genres.png)
+
+- Task 5 — SELECT all books  
+  ![Task 5 – Select all books](images/05_select_all_books.png)
+
+- Task 6 — SELECT books where genre = 'Geografi'  
+  ![Task 6 – Select books in Geografi](images/06_select_books_in_geografi.png)
+
+- Task 7 — SELECT customers and their order counts (including zero)  
+  ![Task 7 – Customers with order counts](images/07_select_customers_with_order_counts.png)
+
+- Task 8 — UPDATE book title  
+  ![Task 8 – Update book title](images/08_update_book_title.png)
+
+- Task 9 — UPDATE published year  
+  ![Task 9 – Update published year](images/09_update_book_published.png)
+
+- Task 10 — UPDATE page count  
+  ![Task 10 – Update page count](images/10_update_book_pages.png)
+
+- Task 11 — Quick check after updates  
+  ![Task 11 – Quick check after updates](images/11_quick_check_after_updates.png)
 
 ## Scripts (how to run)
 
-1) `schema.sql` — creates tables, keys, constraints, indexes (safe to re‑run)
+1) `schema.sql` — creates tables, keys, constraints, indexes (safe to re‑run)  
 2) Use the separate per‑task scripts in `tasks/` (each has a quick CHECK at the end)
 
 ## Evaluation and Design Considerations
