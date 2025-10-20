@@ -61,7 +61,7 @@ Built for Microsoft SQL Server and tested in SSMS. The diagram is available as a
 ## Scripts (how to run)
 
 1) `schema.sql` — creates tables, keys, constraints, indexes (safe to re‑run)  
-2) Use the separate per‑task scripts in `tasks/` (each has a quick CHECK at the end)
+2) Use the separate per‑task scripts in `tasks 1 - 11` (each has a quick CHECK at the end)
 
 ## Evaluation and Design Considerations
 
