@@ -81,6 +81,10 @@ Goal: Support a bookstore database with customers, books, orders, and genres, an
 - Idempotency:
   - Inserts are guarded with `IF NOT EXISTS`.
   - Order creation is guarded for the same customer+ISBN to avoid duplicates on re‑runs.
+ 
+## Perspective
+Next steps: add seed data; create views (books by genre, orders per customer); add a stored procedure to place an order in one transaction; auto‑recalculate order totals; add helpful indexes; export a few simple reports.
+For more info check next project.....
 
 ## Notes
 
