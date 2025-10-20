@@ -87,3 +87,4 @@ Goal: Support a bookstore database with customers, books, orders, and genres, an
 - Unicode: using N'...' is safer if you ever insert non‑ASCII characters (æ, ø, å) now or later. Use for names/titles/descriptions/logins.
 - Security: Passwords are plain text for demo; in real systems, store salted hashes (bcrypt/Argon2)
 - Portability: Targets SQL Server. For MySQL, convert `IDENTITY`, `GETDATE()`, `SCOPE_IDENTITY()`, NVARCHAR, and some CHECK constraints.
+- `customers.password` and `admin.password` are NVARCHAR columns (not VARBINARY), with no hashing columns. You just insert N'hemmeligt123' directly. There’s no trigger, function, or stored procedure that hashes before saving.
