@@ -65,22 +65,29 @@ Built for Microsoft SQL Server and tested in SSMS. The diagram is available as a
 
 ## Evaluation and Design Considerations
 
-Goal: Support a bookstore database with customers, books, orders, and genres, and allow a single order to include multiple books and multiple copies.
+Goal
+- Support a bookstore DB with customers, books, orders, and genres.
+- Allow one order to include many books and multiple copies.
 
-- Multiple books per order:
-  - Implemented via a junction table `order_items` with a `quantity` column.
-  - Recommended unique index `UNIQUE(order_id, book_isbn)` prevents duplicate lines; increase `quantity` instead.
-- Data validation (examples):
-  - `books.pages > 0` when provided
-  - `books.published` between 1400 and current year when provided
-  - `books.price >= 0`, `orders.total_amount >= 0`
-- Performance:
-  - Index FKs: `books(genre_id)`, `orders(customer_id)`, `order_items(order_id)`, `order_items(book_isbn)`.
-- Security:
-  - Store `password` fields as secure hashes (e.g., bcrypt/Argon2), not plain text.
-- Idempotency:
-  - Inserts are guarded with `IF NOT EXISTS`.
-  - Order creation is guarded for the same customer+ISBN to avoid duplicates on re‑runs.
+Multiple books per order
+- Done with a link table: `order_items` (has `order_id`, `book_isbn`, `quantity`).
+- Tip: Add `UNIQUE(order_id, book_isbn)` to avoid duplicate lines; increase `quantity` instead.
+
+Data checks
+- Examples: `books.pages > 0` (when set), `books.published` between 1400 and current year (when set),
+  `books.price >= 0`, `orders.total_amount >= 0`.
+
+Performance
+- Add indexes on foreign keys: `books(genre_id)`, `orders(customer_id)`,
+  `order_items(order_id)`, `order_items(book_isbn)`.
+
+Security
+- Demo only: passwords are stored as plain text.
+- For real use, hash passwords (e.g., bcrypt/Argon2) and don’t store them in clear text.
+
+Idempotency
+- Inserts use `IF NOT EXISTS`.
+- Order creation is guarded so the same customer + ISBN isn’t created twice on re-runs.
  
 ## Perspective
 Next steps: add seed data; create views (books by genre, orders per customer); add a stored procedure to place an order in one transaction; auto‑recalculate order totals; add helpful indexes; export a few simple reports.
